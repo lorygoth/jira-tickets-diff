@@ -1,0 +1,118 @@
+{
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:unicorn/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true,
+    "jest": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    // "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "project": [
+      "./tsconfig.json"
+    ]
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "deprecation",
+    "unicorn",
+    "jest"
+  ],
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [
+        "*.ts"
+      ]
+    },
+    "import/resolver": {
+      "typescript": {
+        "project": [
+          "./tsconfig.json"
+        ]
+      }
+    },
+    "import/extensions": [
+      "error",
+      "always"
+    ]
+  },
+  "rules": {
+    "curly": "error",
+    "no-console": "warn",
+    "object-shorthand": "error",
+    "@typescript-eslint/consistent-type-assertions": [
+      "error",
+      {
+        "assertionStyle": "never"
+      }
+    ],
+    "@typescript-eslint/no-unnecessary-condition": "error",
+    "@typescript-eslint/no-unnecessary-type-assertion": "error",
+    "deprecation/deprecation": "error",
+    "unicorn/consistent-function-scoping": "off",
+    "unicorn/no-array-callback-reference": "off",
+    "unicorn/no-array-for-each": "off",
+    "unicorn/no-array-reduce": "off",
+    "unicorn/no-document-cookie": "off",
+    "unicorn/no-negated-condition": "off",
+    "unicorn/no-nested-ternary": "off",
+    "unicorn/no-useless-undefined": "off",
+    "unicorn/no-zero-fractions": "off",
+    "unicorn/numeric-separators-style": "off",
+    "unicorn/prefer-dom-node-append": "off",
+    "unicorn/prefer-dom-node-text-content": "off",
+    "unicorn/prefer-module": "off",
+    "unicorn/prefer-node-protocol": "off",
+    "unicorn/prefer-object-from-entries": "off",
+    "unicorn/prefer-top-level-await": "off",
+    "unicorn/prevent-abbreviations": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.config.js"
+      ],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    },
+    {
+      "files": [
+        "*.ts"
+      ],
+      "rules": {
+        "unicorn/filename-case": [
+          "error",
+          {
+            "case": "kebabCase"
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.test.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/consistent-type-assertions": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "unicorn/error-message": "off",
+        "unicorn/no-null": "off",
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error"
+      }
+    },
+  ]
+}

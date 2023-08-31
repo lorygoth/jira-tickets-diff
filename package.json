@@ -1,0 +1,42 @@
+{
+    "name": "aggregated-weather-chart-card",
+    "type": "module",
+    "version": "0.1",
+    "description": "Home Assistant Aggregated Weather chart card",
+    "engines": {
+        "npm": ">=8.0.0",
+        "node": ">=16.0.0"
+    },
+    "scripts": {
+        "build": "npm run lint && npm run rollup",
+        "lint": "tsc --noEmit -p tsconfig.json && eslint",
+        "test": "jest",
+        "rollup": "rollup -c",
+        "tsc": "tsc --noEmit"
+    },
+    "devDependencies": {
+        "@jest/types": "^29.6.3",
+        "@rollup/plugin-node-resolve": "^15.2.1",
+        "@rollup/plugin-typescript": "^11.1.2",
+        "@types/diff": "^5.0.3",
+        "@types/jest": "^29.5.4",
+        "@types/tampermonkey": "^4.20.1",
+        "@typescript-eslint/eslint-plugin": "^6.4.1",
+        "@typescript-eslint/parser": "^6.4.1",
+        "eslint": "^8.47.0",
+        "eslint-config-prettier": "^9.0.0",
+        "eslint-plugin-deprecation": "^1.5.0",
+        "eslint-plugin-unicorn": "^48.0.1",
+        "jest": "^29.6.4",
+        "jest-environment-jsdom": "^29.6.4",
+        "prettier": "^3.0.2",
+        "rollup": "^3.28.1",
+        "ts-jest": "^29.1.1",
+        "tslib": "^2.6.2",
+        "typescript": "^5.2.2"
+    },
+    "dependencies": {
+        "diff": "^5.1.0",
+        "eslint-plugin-jest": "^27.2.3"
+    }
+}
