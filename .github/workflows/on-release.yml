@@ -1,0 +1,41 @@
+name: Test, Build & Release
+
+on:
+  push:
+    branches: ['main']
+
+env:
+  bundle_name: 'jira-tickets-diff.user.js'
+
+jobs:
+  on-merge:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ vars.NODE_VERSION }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      - run: npm run test
+      - name: Read package.json
+        uses: dutscher/read-package-json-endpoint-actions@v1.33.7
+        id: read_package_json
+      - name: Release
+        uses: ncipollo/release-action@v1.13.0
+        with:
+          artifacts: 'dist/${{ env.bundle_name }}'
+          bodyFile: 'readme.md'
+          artifactErrorsFailBuild: true
+          name: 'v${{ steps.read_package_json.outputs.endpoint }}'
+      - name: Publish to Gist
+        uses: exuanbo/actions-deploy-gist@v1.1.4
+        with:
+          gist_id: ${{ vars.GIST_ID }}
+          token: ${{ secrets.GIST_TOKEN }}
+          file_path: 'dist/${{ env.bundle_name }}'
+          file_type: text
