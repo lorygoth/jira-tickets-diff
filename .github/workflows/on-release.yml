@@ -14,10 +14,10 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js $NODE_VERSION
+      - name: Use Node.js ${{ vars.NODE_VERSION }}
         uses: actions/setup-node@v3
         with:
-          node-version: $NODE_VERSION
+          node-version: ${{ vars.NODE_VERSION }}
           cache: 'npm'
       - uses: ./.github/workflows/common/build.yml
         with:
