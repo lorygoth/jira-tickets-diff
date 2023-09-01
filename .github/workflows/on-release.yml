@@ -19,10 +19,9 @@ jobs:
         with:
           node-version: ${{ vars.NODE_VERSION }}
           cache: 'npm'
-      - uses: ./.github/workflows/common/build.yml
-        with:
-          environment: production
-      - uses: ./.github/workflows/common/test.yml
+      - run: npm ci
+      - run: npm run build
+      - run: npm run test
       - name: Read package.json
         uses: dutscher/read-package-json-endpoint-actions@v1.33.7
         id: read_package_json
