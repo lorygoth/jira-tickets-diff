@@ -23,15 +23,21 @@ jobs:
       - run: npm run build
       - run: npm run test
       - name: Read package.json
-        uses: dutscher/read-package-json-endpoint-actions@v1.33.7
-        id: read_package_json
+        id: set_var
+        run: |
+          content=`cat ./package.json`
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          # end of optional handling for multi line json
+          echo "::set-output name=packageJson::$content"
       - name: Release
         uses: ncipollo/release-action@v1.13.0
         with:
           artifacts: 'dist/${{ env.bundle_name }}'
           bodyFile: 'readme.md'
           artifactErrorsFailBuild: true
-          name: 'v${{ steps.read_package_json.outputs.endpoint }}'
+          name: 'v${{fromJson(steps.set_var.outputs.packageJson).version}}'
       - name: Publish to Gist
         uses: exuanbo/actions-deploy-gist@v1.1.4
         with:
