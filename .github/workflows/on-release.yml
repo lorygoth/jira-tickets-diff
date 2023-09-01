@@ -13,6 +13,12 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js $NODE_VERSION
+        uses: actions/setup-node@v3
+        with:
+          node-version: $NODE_VERSION
+          cache: 'npm'
       - uses: ./.github/workflows/common/build.yml
         with:
           environment: production
