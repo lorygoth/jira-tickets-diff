@@ -22,7 +22,6 @@
     "strictNullChecks": true,
     "allowImportingTsExtensions": true,
     "baseUrl": ".",
-    "outDir": "build",
   },
   "include": [
     "src",
