@@ -38,6 +38,7 @@ jobs:
           bodyFile: 'readme.md'
           artifactErrorsFailBuild: true
           name: 'v${{fromJson(steps.set_var.outputs.packageJson).version}}'
+          tag: 'v${{fromJson(steps.set_var.outputs.packageJson).version}}'
       - name: Publish to Gist
         uses: exuanbo/actions-deploy-gist@v1.1.4
         with:
