@@ -5,9 +5,7 @@ on:
     branches: ['main']
 
 env:
-  BUNDLE_PATH: 'dist/${{ vars.GIST_FILENAME }}'
-  GIST_URL: 'https://gist.githubusercontent.com/${{ github.actor }}/${{ vars.GIST_ID }}/raw/${{ vars.GIST_FILENAME }}'
-  REPOSITORY_URL: '${{ github.server_url }}/${{ github.repository }}'
+  bundle_path: 'dist/${{ vars.GIST_FILENAME }}'
 
 jobs:
   on-merge:
@@ -23,6 +21,10 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run build
+        env:
+          BUNDLE_PATH: ${{ env.bundle_path }}
+          GIST_URL: 'https://gist.githubusercontent.com/${{ github.actor }}/${{ vars.GIST_ID }}/raw/${{ vars.GIST_FILENAME }}'
+          REPOSITORY_URL: '${{ github.server_url }}/${{ github.repository }}'
       - run: npm run test
       - name: Read package.json
         id: set_var
@@ -36,7 +38,7 @@ jobs:
       - name: Release
         uses: ncipollo/release-action@v1.13.0
         with:
-          artifacts: ${{ env.BUNDLE_PATH }}
+          artifacts: ${{ env.bundle_path }}
           bodyFile: 'readme.md'
           artifactErrorsFailBuild: true
           name: 'v${{fromJson(steps.set_var.outputs.packageJson).version}}'
@@ -46,5 +48,5 @@ jobs:
         with:
           gist_id: ${{ vars.GIST_ID }}
           token: ${{ secrets.GIST_TOKEN }}
-          file_path: ${{ env.BUNDLE_PATH }}
+          file_path: ${{ env.bundle_path }}
           file_type: text
