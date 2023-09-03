@@ -5,12 +5,12 @@ import fs from 'fs';
 
 const dev = process.env.ROLLUP_WATCH;
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-const bundle = process.env.BUNDLE_PATH || 'bundle.js';
+const file = process.env.BUNDLE_PATH || 'bundle.js';
 
 export default {
   input: 'src/main.ts',
   output: {
-    file: `dist/${bundle}`,
+    file,
     format: 'iife',
     sourcemap: dev ? true : false,
   },
