@@ -5,7 +5,9 @@ on:
     branches: ['main']
 
 env:
-  bundle_name: 'jira-tickets-diff.user.js'
+  BUNDLE_PATH: 'dist/${{ vars.GIST_FILENAME }}'
+  GIST_URL: 'https://gist.githubusercontent.com/${{ github.actor }}/${{ vars.GIST_ID }}/raw/${{ vars.GIST_FILENAME }}'
+  REPOSITORY_URL: '${{ github.server_url }}/${{ github.repository }}'
 
 jobs:
   on-merge:
@@ -34,7 +36,7 @@ jobs:
       - name: Release
         uses: ncipollo/release-action@v1.13.0
         with:
-          artifacts: 'dist/${{ env.bundle_name }}'
+          artifacts: ${{ env.BUNDLE_PATH }}
           bodyFile: 'readme.md'
           artifactErrorsFailBuild: true
           name: 'v${{fromJson(steps.set_var.outputs.packageJson).version}}'
@@ -44,5 +46,5 @@ jobs:
         with:
           gist_id: ${{ vars.GIST_ID }}
           token: ${{ secrets.GIST_TOKEN }}
-          file_path: 'dist/${{ env.bundle_name }}'
+          file_path: ${{ env.BUNDLE_PATH }}
           file_type: text

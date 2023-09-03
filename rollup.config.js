@@ -5,11 +5,12 @@ import fs from 'fs';
 
 const dev = process.env.ROLLUP_WATCH;
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+const bundle = process.env.BUNDLE_PATH || 'bundle.js';
 
 export default {
   input: 'src/main.ts',
   output: {
-    file: 'dist/jira-tickets-diff.user.js',
+    file: `dist/${bundle}`,
     format: 'iife',
     sourcemap: dev ? true : false,
   },
@@ -24,9 +25,11 @@ export default {
         name: pkg.name,
         version: pkg.version,
         description: pkg.description,
-        homepage: pkg.repository,
+        homepage: process.env.REPOSITORY_URL,
         author: pkg.author,
         license: pkg.license,
+        downloadURL: process.env.GIST_URL,
+        updateURL: process.env.GIST_URL,
       },
     }),
   ],
